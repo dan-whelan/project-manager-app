@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_txt_size">70sp</dimen>
+
+    <!--Intro Screen-->
+    <dimen name="app_txt_size">40sp</dimen>
+    <dimen name="app_txt_marginTop">40dp</dimen>
+    <dimen name="intro_img_marginTop">30dp</dimen>
+    <dimen name="title_text_marginTop">25dp</dimen>
+    <dimen name="title_text_size">25sp</dimen>
+    <dimen name="title_text_marginStartEnd">20dp</dimen>
+    <dimen name="title_text_line_spacing_extra">5dp</dimen>
+    <dimen name="desc_text_marginTop">10dp</dimen>
+    <dimen name="desc_text_size">16sp</dimen>
+    <dimen name="intro_btn_marginStartEnd">20dp</dimen>
+    <dimen name="sign_in_btn_marginTop">50dp</dimen>
+    <dimen name="btn_paddingTopBottom">8dp</dimen>
+    <dimen name="sign_up_btn_marginTop">15dp</dimen>
+    <dimen name="btn_text_size">18sp</dimen>
+
+    <!--Sign Up & Sign In-->
+    <dimen name="sign_up_screen_btn_marginTop">30dp</dimen>
+    <dimen name="toolbar_text_size">18sp</dimen>
+    <dimen name="authentication_marginTop">40dp</dimen>
+    <dimen name="authentication_desc_txt_size">16sp</dimen>
+    <dimen name="authentication_marginStartEnd">25dp</dimen>
+    <dimen name="authentication_card_marginTop">60dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="card_corner_rad">10dp</dimen>
+    <dimen name="card_content_padding">16dp</dimen>
+    <dimen name="authentication_til_marginStartEnd">16dp</dimen>
+    <dimen name="edit_txt_size">16sp</dimen>
+    <dimen name="authentication_til_marginTop">20dp</dimen>
+    <dimen name="progress_padding">10dp</dimen>
+    <dimen name="progress_width_height">50dp</dimen>
+    <dimen name="progress_marginEnd">10dp</dimen>
+    <dimen name="progress_txt_size">16sp</dimen>
+
+    <!--Navigation Header-->
+    <dimen name="nav_main_height">200dp</dimen>
+    <dimen name="nav_image_size">80dp</dimen>
+    <dimen name="nav_content_margin_StartEnd">16dp</dimen>
+    <dimen name="nav_content_margin_top">5dp</dimen>
+    <dimen name="nav_content_margin_bottom">10dp</dimen>
+    <dimen name="nav_user_name_txt_size">18sp</dimen>
+    <dimen name="nav_image_border_width">1dp</dimen>
+    <dimen name="nav_divider_height">0.5dp</dimen>
+    <dimen name="add_board_margin">10dp</dimen>
+
+    <!--Board Recycler View-->
+    <dimen name="main_content_padding">16dp</dimen>
+    <dimen name="no_boards_txt_size">16sp</dimen>
+    <dimen name="item_content_marginBottom">10dp</dimen>
+    <dimen name="item_content_padding">10dp</dimen>
+    <dimen name="item_img_size">60dp</dimen>
+    <dimen name="img_border_width">0.5dp</dimen>
+    <dimen name="item_name_marginStart">10dp</dimen>
+    <dimen name="item_name_txt_size">18sp</dimen>
+    <dimen name="item_creator_txt_size">14sp</dimen>
+    <dimen name="divider_marginTop">5dp</dimen>
+    <dimen name="divider_height">0.3dp</dimen>
+    <dimen name="task_list_padding">10dp</dimen>
+
+    <!--Task List-->
+    <dimen name="add_task_list_txt_padding">12dp</dimen>
+    <dimen name="add_task_list_txt_size">18sp</dimen>
+    <dimen name="add_task_list_name_margin">5dp</dimen>
+    <dimen name="add_ask_list_name_elevation">5dp</dimen>
+    <dimen name="add_task_list_name_corner_rad">5dp</dimen>
+    <dimen name="edit_list_name_padding">10dp</dimen>
+    <dimen name="task_list_title_txt_size">16sp</dimen>
+
+    <!--Card List-->
+    <dimen name="card_content_margin">8dp</dimen>
+    <dimen name="card_label_height">15dp</dimen>
+    <dimen name="card_name_padding">10dp</dimen>
+    <dimen name="card_name_size">16sp</dimen>
+    <dimen name="member_padding">10dp</dimen>
+    <dimen name="member_size">14sp</dimen>
+
+    <!--Members Screen-->
+    <dimen name="members_content_padding">16dp</dimen>
+    <dimen name="members_marginTop">5dp</dimen>
+    <dimen name="item_member_marginBottom">10dp</dimen>
+    <dimen name="item_member_padding">10dp</dimen>
+    <dimen name="member_image_size">60dp</dimen>
+    <dimen name="item_detail_marginStart">10dp</dimen>
+    <dimen name="member_name_txt_size">18sp</dimen>
+    <dimen name="member_email_txt_size">14sp</dimen>
+
+    <!--Search Users-->
+    <dimen name="search_elevation">3dp</dimen>
+    <dimen name="search_corner_rad">3dp</dimen>
+    <dimen name="search_title_padding">10dp</dimen>
+    <dimen name="search_title_txt_size">18sp</dimen>
+    <dimen name="search_divider_marginTopBottom">1dp</dimen>
+    <dimen name="search_email_marginTop">10dp</dimen>
+    <dimen name="search_action_layout_height">40dp</dimen>
+    <dimen name="search_action_layout_marginTop">10dp</dimen>
+    <dimen name="search_btn_padding">10dp</dimen>
+    <dimen name="search_btn_txt_size">16sp</dimen>
+
+</resources>

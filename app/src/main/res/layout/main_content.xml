@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/intro_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.MainActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:elevation="@dimen/card_elevation"
+        app:cardCornerRadius="@dimen/card_corner_rad"
+        app:layout_constraintBottom_toTopOf="@id/add_board_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/nav_content_margin_bottom">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/board_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/no_boards_txt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_boards_txt"
+            android:gravity="center"
+            android:textColor="@color/primary_text_colour"
+            android:textSize="@dimen/no_boards_txt_size"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_board_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colourPrimary"
+        android:elevation="0dp"
+        android:contentDescription="@string/add_board_txt"
+        app:srcCompat="@drawable/ic_add_board"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

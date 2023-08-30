@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colourPrimary">#0c90f1</color>
+    <color name="colourPrimaryDark">#005b96</color>
+    <color name="colourAccent">#0c90f1</color>
+
+    <color name="gradient_btn_start">#0bcceb</color>
+    <color name="gradient_btn_end">#0a80f5</color>
+    <color name="border">#0c90f1</color>
+
+    <color name="snackbar_error_colour">#f72400</color>
+
+    <color name="primary_text_colour">#263238</color>
+    <color name="secondary_text_colour">#90a4ae</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_grey">#d3d3d3</color>
+
+    <color name="divider_colour">#aaaaaa</color>
+
+    <color name="task_list_action">#f7f6fa</color>
+    <color name="task_list_title_bg">#f8f8f8</color>
+</resources>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">PROJECT\nMANAGER</string>
+
+    <string name="sign_in_bg_txt">Sign In Background</string>
+    <string name="intro_txt_title">Let\'s Get started</string>
+    <string name="intro_txt_description">Collaborate and Plan Together Across Multiple Devices on Projemanag’s Minimalist Interface.</string>
+    <string name="sign_in_btn">SIGN IN</string>
+    <string name="sign_up_btn">SIGN UP</string>
+    <string name="sign_up_desc">Enter your name, email id and password, to register with us.</string>
+    <string name="sign_in_desc">Enter Email id and password, to Sign In.</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="progress_txt">Please Wait...</string>
+
+    <string name="profile_picture_img">Profile Picture</string>
+    <string name="my_profile_txt">My Profile</string>
+    <string name="sign_out_txt">Sign Out</string>
+    <string name="my_profile">My Profile</string>
+    <string name="mobile">Mobile</string>
+    <string name="update_btn">Update</string>
+
+    <string name="board_name_txt">Board Name</string>
+    <string name="create_txt">Create</string>
+    <string name="create_board_toolbar_txt">Create Board</string>
+    <string name="add_board_txt">Add Board</string>
+    <string name="no_boards_txt">No Boards Available! Create One!</string>
+    <string name="board_img">Board Image</string>
+
+    <string name="add_list_txt">Add List</string>
+    <string name="close_edit_txt">Close Edit</string>
+    <string name="list_name_txt">List Name</string>
+    <string name="submit_edit_txt">Submit Edit</string>
+    <string name="title_edit_img">Title Edit</string>
+    <string name="delete_list_btn">Delete List</string>
+    <string name="add_card_txt">Add Card</string>
+
+    <string name="members_txt">Members</string>
+    <string name="add_member_txt">Add Member</string>
+    <string name="search_member_txt">Search Member</string>
+    <string name="email_hint">Email</string>
+    <string name="add_btn">ADD</string>
+    <string name="cancel_btn">CANCEL</string>
+</resources>

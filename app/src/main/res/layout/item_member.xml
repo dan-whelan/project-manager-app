@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground"
+    android:layout_marginBottom="@dimen/item_member_marginBottom">
+
+    <LinearLayout
+        android:id="@+id/member_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/item_member_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:layout_width="@dimen/member_image_size"
+            android:layout_height="@dimen/member_image_size"
+            android:contentDescription="@string/profile_picture_img"
+            app:civ_border_color="@color/primary_text_colour"
+            app:civ_border_width="@dimen/img_border_width"
+            android:src="@drawable/ic_user_place_holder"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/item_detail_marginStart"
+            android:padding="@dimen/member_padding">
+
+            <TextView
+                android:id="@+id/member_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text_colour"
+                android:textSize="@dimen/member_name_txt_size"
+                tools:text="Member Name"/>
+
+            <TextView
+                android:id="@+id/member_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text_colour"
+                android:textSize="@dimen/member_email_txt_size"
+                tools:text="Email"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_colour"/>
+</LinearLayout>
