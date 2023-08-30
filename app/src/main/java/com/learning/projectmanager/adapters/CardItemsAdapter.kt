@@ -1,12 +1,12 @@
-package com.learning.projemanag.adapters
+package com.learning.projectmanager.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.databinding.ItemCardBinding
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.CardModel
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.CardModel
 
 open class CardItemsAdapter(
     private val context: Context,

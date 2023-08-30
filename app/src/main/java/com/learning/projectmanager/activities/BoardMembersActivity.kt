@@ -1,24 +1,21 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.projemanag.R
-import com.learning.projemanag.adapters.BoardMembersAdapter
+import com.learning.projectmanager.adapters.BoardMembersAdapter
 import com.learning.projemanag.databinding.ActivityBoardMembersBinding
 import com.learning.projemanag.databinding.DialogAddNewMembersBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.UserModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.UserModel
+import com.learning.projectmanager.utils.Constants
 
-class BoardMembersActivity : BaseActivity() {
+class BoardMembersActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivityBoardMembersBinding
     private lateinit var db: FirestoreClass
 

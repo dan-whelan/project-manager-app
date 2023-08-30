@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -8,7 +8,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.learning.projemanag.databinding.ActivityIntroBinding
 
-class IntroActivity : BaseActivity() {
+class IntroActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivityIntroBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

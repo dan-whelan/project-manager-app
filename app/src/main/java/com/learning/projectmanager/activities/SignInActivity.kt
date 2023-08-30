@@ -1,26 +1,27 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.learning.projemanag.R
-import com.learning.projemanag.databinding.ActivitySignUpBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.UserModel
+import com.learning.projemanag.databinding.ActivitySignInBinding
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.UserModel
 
-class SignUpActivity : BaseActivity() {
-    private lateinit var binding: ActivitySignUpBinding
+class SignInActivity : com.learning.projectmanager.activities.BaseActivity() {
+    private lateinit var binding: ActivitySignInBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
         auth = FirebaseAuth.getInstance()
         db = FirestoreClass()
         setContentView(binding.root)
@@ -36,61 +37,60 @@ class SignUpActivity : BaseActivity() {
             )
         }
 
-        binding.signUpBtn.setOnClickListener {
-            registerUser()
+        binding.signInBtn.setOnClickListener {
+            signInUser()
         }
 
     }
 
+    fun signInSuccess(user: UserModel) {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     private fun setupActionBar() {
-        setSupportActionBar(binding.signUpToolbar)
+        setSupportActionBar(binding.signInToolbar)
         if(supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
             supportActionBar?.title = ""
         }
-        binding.signUpToolbar.setNavigationOnClickListener {
+        binding.signInToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
     }
 
-    private fun registerUser() {
-        val name: String = binding.editNameTxt.text.toString().trim{ it <= ' ' }
-        val email: String = binding.editEmailTxt.text.toString().trim{ it <= ' ' }
+    private fun signInUser() {
+        val email: String = binding.editEmailTxt.text.toString().trim{ it <= ' '}
         val password: String = binding.editPasswordTxt.text.toString().trim{ it <= ' ' }
-
-        if(validateForm(name, email, password)) {
+        if(validateForm(email, password)) {
             showCustomProgressDialog()
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     hideProgressDialog()
-                    if (task.isSuccessful) {
-                        val firebaseUser: FirebaseUser =
-                            task.result!!.user!!
-                        val registeredEmail = firebaseUser.email!!
-                        val user = UserModel(
-                            firebaseUser.uid,
-                            name,
-                            email
-                        )
-                        db.registerUser(this, user)
+                    if(task.isSuccessful) {
+                        Log.d("SignIn", "signInWithEmail:Success")
+                        val user = auth.currentUser
+                        db.loadUserData(this)
+                        Toast.makeText(
+                            this,
+                            "Welcome",
+                            Toast.LENGTH_LONG
+                        ).show()
                     } else {
+                        Log.w("SignIn", "signInWithEmail:Failure", task.exception)
                         Toast.makeText(
                             this,
                             task.exception!!.message,
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 }
         }
     }
 
-    private fun validateForm(name: String, email: String, password: String): Boolean =
+    private fun validateForm(email: String, password: String): Boolean =
         when {
-            TextUtils.isEmpty(name) -> {
-                showErrorSnackBar("Please Enter a Name")
-                false
-            }
             TextUtils.isEmpty(email) -> {
                 showErrorSnackBar("Please Enter an Email Address")
                 false
@@ -101,15 +101,4 @@ class SignUpActivity : BaseActivity() {
             }
             else -> true
         }
-
-    fun userRegisteredSuccess() {
-        Toast.makeText(
-            this,
-            "You have successfully registered",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        auth.signOut()
-        finish()
-    }
 }

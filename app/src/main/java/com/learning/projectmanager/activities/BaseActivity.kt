@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -10,9 +10,9 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.learning.projemanag.databinding.ActivitySplashBinding
-import com.learning.projemanag.firebase.FirestoreClass
+import com.learning.projectmanager.firebase.FirestoreClass
 
-class SplashActivity : BaseActivity() {
+class SplashActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

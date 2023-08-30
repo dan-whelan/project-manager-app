@@ -1,4 +1,4 @@
-package com.learning.projemanag
+package com.learning.projectmanager
 
 import org.junit.Test
 

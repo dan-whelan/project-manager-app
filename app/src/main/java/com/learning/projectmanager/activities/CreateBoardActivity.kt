@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.Manifest
 import android.app.Activity
@@ -18,11 +18,11 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.learning.projemanag.R
 import com.learning.projemanag.databinding.ActivityCreateBoardBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.utils.Constants
 
-class CreateBoardActivity : BaseActivity() {
+class CreateBoardActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivityCreateBoardBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

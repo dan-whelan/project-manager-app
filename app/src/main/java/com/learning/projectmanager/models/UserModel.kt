@@ -1,4 +1,4 @@
-package com.learning.projemanag.models
+package com.learning.projectmanager.models
 
 import android.os.Parcel
 import android.os.Parcelable

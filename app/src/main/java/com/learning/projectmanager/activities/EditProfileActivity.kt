@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.Manifest
 import android.app.Activity
@@ -20,14 +20,14 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.learning.projemanag.R
 import com.learning.projemanag.databinding.ActivityEditProfileBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.UserModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.UserModel
+import com.learning.projectmanager.utils.Constants
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.HashMap
 
-class EditProfileActivity : BaseActivity() {
+class EditProfileActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

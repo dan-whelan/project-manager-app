@@ -1,4 +1,4 @@
-package com.learning.projemanag.firebase
+package com.learning.projectmanager.firebase
 
 import android.app.Activity
 import android.util.Log
@@ -6,16 +6,15 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.learning.projemanag.activities.BoardMembersActivity
-import com.learning.projemanag.activities.CreateBoardActivity
-import com.learning.projemanag.activities.EditProfileActivity
-import com.learning.projemanag.activities.MainActivity
-import com.learning.projemanag.activities.SignInActivity
-import com.learning.projemanag.activities.SignUpActivity
-import com.learning.projemanag.activities.TaskListActivity
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.UserModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.activities.CreateBoardActivity
+import com.learning.projectmanager.activities.EditProfileActivity
+import com.learning.projectmanager.activities.MainActivity
+import com.learning.projectmanager.activities.SignInActivity
+import com.learning.projectmanager.activities.SignUpActivity
+import com.learning.projectmanager.activities.TaskListActivity
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.UserModel
+import com.learning.projectmanager.utils.Constants
 
 class FirestoreClass {
     private val mFireStore = FirebaseFirestore.getInstance()
@@ -150,7 +149,7 @@ class FirestoreClass {
             }
     }
 
-    fun getAssignedMembersListDetails(activity: BoardMembersActivity, assignedTo: ArrayList<String>) {
+    fun getAssignedMembersListDetails(activity: com.learning.projectmanager.activities.BoardMembersActivity, assignedTo: ArrayList<String>) {
         mFireStore.collection(Constants.USERS)
             .whereIn(Constants.ID, assignedTo)
             .get()

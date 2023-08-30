@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -17,14 +17,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.learning.projemanag.R
-import com.learning.projemanag.adapters.BoardItemsAdapter
+import com.learning.projectmanager.adapters.BoardItemsAdapter
 import com.learning.projemanag.databinding.ActivityMainBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.UserModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.UserModel
+import com.learning.projectmanager.utils.Constants
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : com.learning.projectmanager.activities.BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

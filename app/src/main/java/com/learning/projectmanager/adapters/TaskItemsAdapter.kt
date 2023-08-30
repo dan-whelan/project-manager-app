@@ -1,4 +1,4 @@
-package com.learning.projemanag.adapters
+package com.learning.projectmanager.adapters
 
 import android.app.AlertDialog
 import android.content.Context
@@ -17,8 +17,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.R
-import com.learning.projemanag.activities.TaskListActivity
-import com.learning.projemanag.models.TaskModel
+import com.learning.projectmanager.activities.TaskListActivity
+import com.learning.projectmanager.models.TaskModel
 
 open class TaskItemsAdapter(
     private val context: Context,

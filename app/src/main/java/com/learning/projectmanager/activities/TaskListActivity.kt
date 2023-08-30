@@ -1,4 +1,4 @@
-package com.learning.projemanag.activities
+package com.learning.projectmanager.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +8,15 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.learning.projemanag.R
-import com.learning.projemanag.adapters.TaskItemsAdapter
+import com.learning.projectmanager.adapters.TaskItemsAdapter
 import com.learning.projemanag.databinding.ActivityTaskListBinding
-import com.learning.projemanag.firebase.FirestoreClass
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.CardModel
-import com.learning.projemanag.models.TaskModel
-import com.learning.projemanag.utils.Constants
+import com.learning.projectmanager.firebase.FirestoreClass
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.CardModel
+import com.learning.projectmanager.models.TaskModel
+import com.learning.projectmanager.utils.Constants
 
-class TaskListActivity : BaseActivity() {
+class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
     private lateinit var binding: ActivityTaskListBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass
@@ -45,7 +45,7 @@ class TaskListActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_members -> {
-                val intent = Intent(this, BoardMembersActivity::class.java)
+                val intent = Intent(this, com.learning.projectmanager.activities.BoardMembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
                 startActivity(intent)
             }

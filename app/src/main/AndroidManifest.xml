@@ -23,46 +23,46 @@
         android:theme="@style/Theme.Projemanag"
         tools:targetApi="31">
         <activity
-            android:name=".activities.BoardMembersActivity"
+            android:name="com.learning.projectmanager.activities.BoardMembersActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.TaskListActivity"
+            android:name="com.learning.projectmanager.activities.TaskListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.CreateBoardActivity"
+            android:name="com.learning.projectmanager.activities.CreateBoardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.EditProfileActivity"
+            android:name="com.learning.projectmanager.activities.EditProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.BaseActivity"
+            android:name="com.learning.projectmanager.activities.BaseActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SignInActivity"
+            android:name="com.learning.projectmanager.activities.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name="com.learning.projectmanager.activities.SignUpActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar.Material" />
         <activity
-            android:name=".activities.IntroActivity"
+            android:name="com.learning.projectmanager.activities.IntroActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.learning.projectmanager.activities.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Projemanag.NoActionBar">
@@ -73,7 +73,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.learning.projectmanager.activities.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

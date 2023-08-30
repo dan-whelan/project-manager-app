@@ -1,4 +1,4 @@
-package com.learning.projemanag.utils
+package com.learning.projectmanager.utils
 
 import android.app.Activity
 import android.app.AlertDialog

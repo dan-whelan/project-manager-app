@@ -1,4 +1,4 @@
-package com.learning.projemanag.adapters
+package com.learning.projectmanager.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.learning.projemanag.R
 import com.learning.projemanag.databinding.ItemMemberBinding
-import com.learning.projemanag.models.BoardModel
-import com.learning.projemanag.models.UserModel
+import com.learning.projectmanager.models.BoardModel
+import com.learning.projectmanager.models.UserModel
 
 open class BoardMembersAdapter(
     val context: Context,
