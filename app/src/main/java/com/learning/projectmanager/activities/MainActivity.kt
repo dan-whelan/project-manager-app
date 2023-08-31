@@ -24,7 +24,7 @@ import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 
-class MainActivity : com.learning.projectmanager.activities.BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

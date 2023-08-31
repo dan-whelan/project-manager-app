@@ -10,14 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Projemanag.AppBarOverlay">
+        android:theme="@style/Theme.ProjectManager.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/members_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colourPrimary"
-            app:popupTheme="@style/Theme.Projemanag.PopupOverlay" />
+            app:popupTheme="@style/Theme.ProjectManager.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout

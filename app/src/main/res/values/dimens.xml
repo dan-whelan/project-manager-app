@@ -99,5 +99,25 @@
     <dimen name="search_action_layout_marginTop">10dp</dimen>
     <dimen name="search_btn_padding">10dp</dimen>
     <dimen name="search_btn_txt_size">16sp</dimen>
+    
+    <!--Card Details Screen-->
+    <dimen name="details_content_padding">16dp</dimen>
+    <dimen name="details_card_name_marginBottom">10dp</dimen>
+    <dimen name="details_label_txt_size">14sp</dimen>
+    <dimen name="details_value_marginTop">5dp</dimen>
+    <dimen name="details_value_padding">10dp</dimen>
+    <dimen name="details_members_label_marginTop">15dp</dimen>
+    <dimen name="details_update_btn_marginTop">30dp</dimen>
+
+    <!--Edit Card Details-->
+    <dimen name="details_label_colour_height">40dp</dimen>
+    <dimen name="details_label_colour_margin">5dp</dimen>
+    <dimen name="details_selected_colour_marginEnd">10dp</dimen>
+    <dimen name="details_elevation_corner_rad">3dp</dimen>
+    <dimen name="details_list_padding">10dp</dimen>
+    <dimen name="details_list_title_padding">5dp</dimen>
+    <dimen name="details_list_title_txt_size">18sp</dimen>
+    <dimen name="details_list_marginTopBottom">3dp</dimen>
+    <dimen name="details_selected_member_img_size">45dp</dimen>
 
 </resources>

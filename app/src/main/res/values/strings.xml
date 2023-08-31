@@ -41,4 +41,21 @@
     <string name="email_hint">Email</string>
     <string name="add_btn">ADD</string>
     <string name="cancel_btn">CANCEL</string>
+    <string name="label_colour_txt">Label Colour</string>
+    <string name="due_date_txt">Due Date</string>
+    <string name="select_colour_txt">Select Colour</string>
+    <string name="select_members_txt">Select Members</string>
+    <string name="select_due_date_txt">Select Due Date</string>
+    <string name="delete_card_txt">Delete Card</string>
+    <string name="selected_colour_img">Selected Colour</string>
+
+    <!--Label Colours-->
+    <string name="Green">#43c86f</string>
+    <string name="Blue">#0c90f1</string>
+    <string name="Red">#f72400</string>
+    <string name="Dark_Grey">#7a8089</string>
+    <string name="Orange">#d57c1d</string>
+    <string name="Dark_Red">#770000</string>
+    <string name="Dark_Blue">#0022f8</string>
+    <string name="select_label_colour_txt">Select Label Colour</string>
 </resources>

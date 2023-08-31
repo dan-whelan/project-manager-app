@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/select_colour_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground">
+
+    <View
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/details_label_colour_height"
+        android:layout_margin="@dimen/details_label_colour_margin"
+        android:background="@color/colourAccent"/>
+
+    <ImageView
+        android:id="@+id/selected_colour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="@dimen/details_selected_colour_marginEnd"
+        android:contentDescription="@string/selected_colour_img"
+        android:src="@drawable/ic_submit"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</FrameLayout>

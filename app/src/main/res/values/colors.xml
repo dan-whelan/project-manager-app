@@ -21,4 +21,13 @@
 
     <color name="task_list_action">#f7f6fa</color>
     <color name="task_list_title_bg">#f8f8f8</color>
+
+    <!--Label Colours-->
+    <color name="Green">#43c86f</color>
+    <color name="Blue">#0c90f1</color>
+    <color name="Red">#f72400</color>
+    <color name="Dark_Grey">#7a8089</color>
+    <color name="Orange">#d57c1d</color>
+    <color name="Dark_Red">#770000</color>
+    <color name="Dark_Blue">#0022f8</color>
 </resources>

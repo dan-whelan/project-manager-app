@@ -13,7 +13,7 @@ import com.learning.projemanag.databinding.ActivitySignUpBinding
 import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.UserModel
 
-class SignUpActivity : com.learning.projectmanager.activities.BaseActivity() {
+class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

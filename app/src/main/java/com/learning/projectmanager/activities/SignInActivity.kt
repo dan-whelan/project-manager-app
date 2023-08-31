@@ -14,7 +14,7 @@ import com.learning.projemanag.databinding.ActivitySignInBinding
 import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.UserModel
 
-class SignInActivity : com.learning.projectmanager.activities.BaseActivity() {
+class SignInActivity : BaseActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

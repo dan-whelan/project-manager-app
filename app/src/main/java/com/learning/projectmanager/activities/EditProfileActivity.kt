@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.HashMap
 
-class EditProfileActivity : com.learning.projectmanager.activities.BaseActivity() {
+class EditProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

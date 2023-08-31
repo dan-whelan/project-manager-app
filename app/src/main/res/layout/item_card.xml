@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_label_height"
             android:visibility="gone"
+            tools:visibility="visible"
             tools:background="@color/colourAccent"/>
 
         <TextView

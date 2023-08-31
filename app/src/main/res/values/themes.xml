@@ -1,23 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Projemanag" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Base.Theme.ProjectManager" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Projemanag" parent="Base.Theme.Projemanag" />
+    <style name="Theme.ProjectManager" parent="Base.Theme.ProjectManager" />
     
-    <style name="Theme.Projemanag.NoActionBar">
+    <style name="Theme.ProjectManager.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Projemanag.NoActionBar.Material" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.ProjectManager.NoActionBar.Material" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Projemanag.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.ProjectManager.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="Theme.Projemanag.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="Theme.ProjectManager.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

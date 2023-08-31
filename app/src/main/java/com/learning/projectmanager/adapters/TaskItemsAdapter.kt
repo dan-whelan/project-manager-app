@@ -1,6 +1,5 @@
 package com.learning.projectmanager.adapters
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.R
 import com.learning.projectmanager.activities.TaskListActivity
 import com.learning.projectmanager.models.TaskModel
+import com.learning.projectmanager.utils.Constants
 
 open class TaskItemsAdapter(
     private val context: Context,
@@ -122,7 +122,7 @@ open class TaskItemsAdapter(
             val listName = holder.editTitle.text.toString()
             if(listName.isNotEmpty()) {
                 if(context is TaskListActivity) {
-                    context.updateTaskList(position, listName, model)
+                    context.updateTaskList(holder.adapterPosition, listName, model)
                 }
             } else {
                 holder.viewTitleLayout.visibility = View.VISIBLE
@@ -136,7 +136,7 @@ open class TaskItemsAdapter(
         }
 
         holder.deleteList.setOnClickListener{
-            dialogForDeleteList(position, model.title)
+            Constants.dialogForDelete(context, holder.adapterPosition, model.title)
         }
 
         holder.addCardBtn.setOnClickListener {
@@ -154,9 +154,9 @@ open class TaskItemsAdapter(
             if(cardName.isNotEmpty()) {
                 if(context is TaskListActivity) {
                     if (model.cardList.size == 0) {
-                        context.createCardList(position, cardName)
+                        context.createCardList(holder.adapterPosition, cardName)
                     } else {
-                        context.addCardToList(position, cardName)
+                        context.addCardToList(holder.adapterPosition, cardName)
                     }
                 } else {
                     Log.i(this.javaClass.simpleName, "Failed To Add Card to Task")
@@ -178,7 +178,18 @@ open class TaskItemsAdapter(
 
         holder.cardRecycler.layoutManager = LinearLayoutManager(context)
         holder.cardRecycler.setHasFixedSize(true)
-        holder.cardRecycler.adapter = CardItemsAdapter(context, model.cardList)
+        val adapter = CardItemsAdapter(context, model.cardList)
+        holder.cardRecycler.adapter = adapter
+
+        adapter.setOnClickListener(
+            object: CardItemsAdapter.OnClickListener {
+                override fun onClick(cardPosition: Int) {
+                    if(context is TaskListActivity) {
+                        context.cardDetails(holder.adapterPosition, cardPosition)
+                    }
+                }
+            }
+        )
     }
 
     private fun Int.toDp(): Int =
@@ -187,20 +198,4 @@ open class TaskItemsAdapter(
     private fun Int.toPx(): Int =
         (this*Resources.getSystem().displayMetrics.density).toInt()
 
-    private fun dialogForDeleteList(position: Int, title: String) {
-        val alertDialog: AlertDialog = AlertDialog.Builder(context)
-            .setTitle("Alert")
-            .setMessage("Are you sure you want to delete $title.\nThis Cannot be Undone.")
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setPositiveButton("Yes") { dialogInterface, _ ->
-                dialogInterface.dismiss()
-                if(context is TaskListActivity) {
-                    context.deleteTaskList(position)
-                }
-            }.setNegativeButton("No") { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
 }

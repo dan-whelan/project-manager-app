@@ -12,7 +12,7 @@ import android.widget.Toast
 import com.learning.projemanag.databinding.ActivitySplashBinding
 import com.learning.projectmanager.firebase.FirestoreClass
 
-class SplashActivity : com.learning.projectmanager.activities.BaseActivity() {
+class SplashActivity : BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

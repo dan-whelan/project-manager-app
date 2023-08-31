@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/member_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="@dimen/item_member_padding">
@@ -25,20 +25,20 @@
             android:src="@drawable/ic_user_place_holder"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="289dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_detail_marginStart"
             android:gravity="start"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/item_detail_marginStart"
             android:padding="@dimen/member_padding">
 
             <TextView
                 android:id="@+id/member_name"
-                android:layout_width="match_parent"
+                android:layout_width="301dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text_colour"
                 android:textSize="@dimen/member_name_txt_size"
-                tools:text="Member Name"/>
+                tools:text="Member Name" />
 
             <TextView
                 android:id="@+id/member_email"
@@ -46,9 +46,20 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondary_text_colour"
                 android:textSize="@dimen/member_email_txt_size"
-                tools:text="Email"/>
+                tools:text="Email" />
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/selected_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/details_selected_colour_marginEnd"
+            android:contentDescription="@string/selected_colour_img"
+            android:src="@drawable/ic_submit"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <View

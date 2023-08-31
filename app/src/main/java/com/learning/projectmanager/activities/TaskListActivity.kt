@@ -1,10 +1,12 @@
 package com.learning.projectmanager.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.learning.projemanag.R
@@ -14,15 +16,17 @@ import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.CardModel
 import com.learning.projectmanager.models.TaskModel
+import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 
-class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
+class TaskListActivity : BaseActivity() {
     private lateinit var binding: ActivityTaskListBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass
 
     private lateinit var boardDocumentId: String
     private lateinit var mBoardDetails: BoardModel
+    private lateinit var mAssignedMemberList: ArrayList<UserModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskListBinding.inflate(layoutInflater)
@@ -45,9 +49,9 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_members -> {
-                val intent = Intent(this, com.learning.projectmanager.activities.BoardMembersActivity::class.java)
+                val intent = Intent(this, BoardMembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
-                startActivity(intent)
+                startMembersRequest.launch(intent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -79,6 +83,10 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
 
         val adapter = TaskItemsAdapter(this, board.taskList)
         binding.taskList.adapter = adapter
+
+        showCustomProgressDialog()
+        Log.i(this.javaClass.simpleName, mBoardDetails.assignedTo.toString())
+        db.getAssignedMembersListDetails(this, mBoardDetails.assignedTo)
     }
 
     fun addUpdateTaskListSuccess() {
@@ -95,7 +103,7 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
 
         showCustomProgressDialog()
-        db.addUpdateTaskList(this, mBoardDetails)
+        db.addUpdateList(this, mBoardDetails)
     }
 
     fun updateTaskList(position: Int, listName: String, model: TaskModel) {
@@ -103,13 +111,13 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
         mBoardDetails.taskList[position] = task
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
 
-        db.addUpdateTaskList(this, mBoardDetails)
+        db.addUpdateList(this, mBoardDetails)
     }
 
     fun deleteTaskList(position: Int) {
         mBoardDetails.taskList.removeAt(position)
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
-        db.addUpdateTaskList(this, mBoardDetails)
+        db.addUpdateList(this, mBoardDetails)
     }
 
     fun createCardList(position: Int, cardName: String) {
@@ -119,7 +127,7 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
         mBoardDetails.taskList[position].cardList.add(0, card)
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
 
-        db.addUpdateTaskList(this, mBoardDetails)
+        db.addUpdateList(this, mBoardDetails)
     }
 
     fun addCardToList(position: Int, cardName: String) {
@@ -129,6 +137,45 @@ class TaskListActivity : com.learning.projectmanager.activities.BaseActivity() {
         mBoardDetails.taskList[position].cardList.add(card)
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
 
-        db.addUpdateTaskList(this, mBoardDetails)
+        db.addUpdateList(this, mBoardDetails)
     }
+
+    fun cardDetails(taskListPosition: Int, cardPosition: Int) {
+        val intent = Intent(this, CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+        intent.putExtra(Constants.TASK_POSITION, taskListPosition)
+        intent.putExtra(Constants.CARD_POSITION, cardPosition)
+        intent.putExtra(Constants.BOARD_MEMBERS, mAssignedMemberList)
+        startCardDetailsRequest.launch(intent)
+    }
+
+    fun boardMembersDetails(list: ArrayList<UserModel>) {
+        mAssignedMemberList = list
+        hideProgressDialog()
+    }
+
+    private val startMembersRequest =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if(result.resultCode == Activity.RESULT_OK) {
+                showCustomProgressDialog()
+                db.getBoardDetails(this, boardDocumentId)
+            } else {
+                Log.i(this.javaClass.simpleName, "No Board Update Needed")
+            }
+        }
+
+    private val startCardDetailsRequest =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if(result.resultCode == Activity.RESULT_OK) {
+                showCustomProgressDialog()
+                db.getBoardDetails(this, boardDocumentId)
+            } else {
+                Log.i(this.javaClass.simpleName, "No Card List Update Needed")
+            }
+
+        }
 }

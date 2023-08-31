@@ -22,7 +22,7 @@ import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.utils.Constants
 
-class CreateBoardActivity : com.learning.projectmanager.activities.BaseActivity() {
+class CreateBoardActivity : BaseActivity() {
     private lateinit var binding: ActivityCreateBoardBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirestoreClass

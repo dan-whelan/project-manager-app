@@ -1,5 +1,6 @@
 package com.learning.projectmanager.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.view.Menu
@@ -7,7 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.projemanag.R
-import com.learning.projectmanager.adapters.BoardMembersAdapter
+import com.learning.projectmanager.adapters.MembersAdapter
 import com.learning.projemanag.databinding.ActivityBoardMembersBinding
 import com.learning.projemanag.databinding.DialogAddNewMembersBinding
 import com.learning.projectmanager.firebase.FirestoreClass
@@ -15,11 +16,13 @@ import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 
-class BoardMembersActivity : com.learning.projectmanager.activities.BaseActivity() {
+class BoardMembersActivity : BaseActivity() {
     private lateinit var binding: ActivityBoardMembersBinding
     private lateinit var db: FirestoreClass
 
     private lateinit var mBoardDetails: BoardModel
+    private lateinit var mAssignedMembersList: ArrayList<UserModel>
+    private var mChangesMade: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardMembersBinding.inflate(layoutInflater)
@@ -56,13 +59,22 @@ class BoardMembersActivity : com.learning.projectmanager.activities.BaseActivity
             supportActionBar?.title = resources.getString(R.string.members_txt)
         }
         binding.membersToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            this.onBackPressed()
         }
     }
 
+    override fun onBackPressed() {
+        if(mChangesMade) {
+            setResult(Activity.RESULT_OK)
+        }
+        onBackPressedDispatcher.onBackPressed()
+    }
+
     fun populateMembersListToUI(membersList: ArrayList<UserModel>) {
+        mAssignedMembersList = membersList
+
         hideProgressDialog()
-        val adapter = BoardMembersAdapter(this, membersList)
+        val adapter = MembersAdapter(this, membersList)
         binding.membersList.let {
             it.layoutManager = LinearLayoutManager(this)
             it.adapter = adapter
@@ -79,7 +91,7 @@ class BoardMembersActivity : com.learning.projectmanager.activities.BaseActivity
             val email = dialogBinding.searchEmail.text.toString()
             if(email.isNotEmpty()) {
                 dialog.dismiss()
-                //TODO
+                db.getMemberDetails(this, email)
             } else {
                 Toast.makeText(
                     this,
@@ -91,5 +103,18 @@ class BoardMembersActivity : com.learning.projectmanager.activities.BaseActivity
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    fun memberDetails(user: UserModel) {
+        mBoardDetails.assignedTo.add(user.id)
+        db.assignMemberToBoard(this, mBoardDetails, user)
+    }
+
+    fun memberAssignSuccessCall(member: UserModel) {
+        hideProgressDialog()
+        mAssignedMembersList.add(member)
+
+        mChangesMade = true
+        populateMembersListToUI(mAssignedMembersList)
     }
 }

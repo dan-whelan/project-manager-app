@@ -6,6 +6,9 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.learning.projectmanager.activities.BaseActivity
+import com.learning.projectmanager.activities.BoardMembersActivity
+import com.learning.projectmanager.activities.CardDetailsActivity
 import com.learning.projectmanager.activities.CreateBoardActivity
 import com.learning.projectmanager.activities.EditProfileActivity
 import com.learning.projectmanager.activities.MainActivity
@@ -133,7 +136,7 @@ class FirestoreClass {
         return currentUserId
     }
 
-    fun addUpdateTaskList(activity: TaskListActivity, board: BoardModel) {
+    fun addUpdateList(activity: Activity, board: BoardModel) {
         val taskListHashMap = HashMap<String, Any>()
         taskListHashMap[Constants.TASK_LIST] = board.taskList
 
@@ -142,14 +145,15 @@ class FirestoreClass {
             .update(taskListHashMap)
             .addOnSuccessListener {
                 Log.i(activity.javaClass.simpleName, "TaskList updated Successfully")
-                activity.addUpdateTaskListSuccess()
+                if(activity is TaskListActivity) activity.addUpdateTaskListSuccess()
+                else if(activity is CardDetailsActivity) activity.addUpdateCardListSuccess()
             }.addOnFailureListener { ex ->
-                activity.hideProgressDialog()
+                if(activity is BaseActivity) activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "Error updating TaskList: ${ex.message}")
             }
     }
 
-    fun getAssignedMembersListDetails(activity: com.learning.projectmanager.activities.BoardMembersActivity, assignedTo: ArrayList<String>) {
+    fun getAssignedMembersListDetails(activity: Activity, assignedTo: ArrayList<String>) {
         mFireStore.collection(Constants.USERS)
             .whereIn(Constants.ID, assignedTo)
             .get()
@@ -160,10 +164,47 @@ class FirestoreClass {
                     val member = it.toObject(UserModel::class.java)!!
                     membersList.add(member)
                 }
-                activity.populateMembersListToUI(membersList)
+                if(activity is BoardMembersActivity) activity.populateMembersListToUI(membersList)
+                else if(activity is TaskListActivity) activity.boardMembersDetails(membersList)
             }.addOnFailureListener { ex ->
-                activity.hideProgressDialog()
+                if(activity is BaseActivity) activity.hideProgressDialog()
                 Log.i(activity.javaClass.simpleName, ex.message.toString())
             }
+    }
+
+    fun getMemberDetails(activity: BoardMembersActivity, email: String) {
+        mFireStore.collection(Constants.USERS)
+            .whereEqualTo(Constants.EMAIL, email)
+            .get()
+            .addOnSuccessListener { document ->
+                if(document.documents.size > 0) {
+                    val user = document.documents[0].toObject(UserModel::class.java)!!
+                    activity.memberDetails(user)
+                } else {
+                    activity.hideProgressDialog()
+                    activity.showErrorSnackBar("No such member found")
+                }
+            }.addOnFailureListener {
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error Finding User, Please Try Again Later.")
+            }
+    }
+
+    fun assignMemberToBoard(
+        activity: BoardMembersActivity,
+        board: BoardModel,
+        member: UserModel
+    ) {
+       val assignedToHashMap = HashMap<String, Any>()
+       assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
+
+       mFireStore.collection(Constants.BOARDS)
+           .document(board.documentId)
+           .update(assignedToHashMap)
+           .addOnSuccessListener {
+               activity.memberAssignSuccessCall(member)
+           }.addOnFailureListener {
+               Log.e(activity.javaClass.simpleName, "Error while adding member, please try again later")
+           }
     }
 }

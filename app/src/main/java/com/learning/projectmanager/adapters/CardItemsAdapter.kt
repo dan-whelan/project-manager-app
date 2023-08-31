@@ -1,11 +1,12 @@
 package com.learning.projectmanager.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.databinding.ItemCardBinding
-import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.CardModel
 
 open class CardItemsAdapter(
@@ -38,6 +39,18 @@ open class CardItemsAdapter(
         val model = list[position]
         holder.cardName.text = model.title
 
+        if(model.cardColour.isNotEmpty())
+            holder.label.let {
+                it.visibility = View.VISIBLE
+                it.setBackgroundColor(Color.parseColor(model.cardColour))
+            }
+        else holder.label.visibility = View.GONE
+
+        holder.itemView.setOnClickListener {
+            if(onClickListener != null) {
+                onClickListener!!.onClick(position)
+            }
+        }
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {
@@ -45,6 +58,6 @@ open class CardItemsAdapter(
     }
 
     interface OnClickListener{
-        fun onClick(position: Int, model: BoardModel)
+        fun onClick(position: Int)
     }
 }
