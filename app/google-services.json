@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "988697241179",
+    "project_id": "projemanag-ccfda",
+    "storage_bucket": "projemanag-ccfda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988697241179:android:d8a51cd73bdb8d48f4417e",
+        "android_client_info": {
+          "package_name": "com.learning.projemanag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988697241179-086r3v4l1j3f5l26bkuibbk78unpb2gs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.learning.projemanag",
+            "certificate_hash": "34f163fa3fd0bee377e913f2dab5c1e68328e2e9"
+          }
+        },
+        {
+          "client_id": "988697241179-hlk61imgtbi10h9e75sjq6169jjfo0r4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHWp68Re32xnHKcrkBI0UfV6NEoiiN8O4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988697241179-hlk61imgtbi10h9e75sjq6169jjfo0r4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

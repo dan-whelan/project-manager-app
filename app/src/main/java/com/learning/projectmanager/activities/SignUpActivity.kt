@@ -1,5 +1,6 @@
 package com.learning.projectmanager.activities
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -54,6 +55,9 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
+    /*
+        Registers user with FirebaseAuth and logs them in
+     */
     private fun registerUser() {
         val name: String = binding.editNameTxt.text.toString().trim{ it <= ' ' }
         val email: String = binding.editEmailTxt.text.toString().trim{ it <= ' ' }
@@ -85,6 +89,19 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
+    fun userRegisteredSuccess() {
+        Toast.makeText(
+            this,
+            "You have successfully registered",
+            Toast.LENGTH_SHORT
+        ).show()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    /*
+        Checks if all fields are full, if not shows snackbar
+     */
     private fun validateForm(name: String, email: String, password: String): Boolean =
         when {
             TextUtils.isEmpty(name) -> {
@@ -101,15 +118,4 @@ class SignUpActivity : BaseActivity() {
             }
             else -> true
         }
-
-    fun userRegisteredSuccess() {
-        Toast.makeText(
-            this,
-            "You have successfully registered",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        auth.signOut()
-        finish()
-    }
 }

@@ -12,10 +12,14 @@ import com.learning.projemanag.databinding.ItemCardBinding
 import com.learning.projectmanager.models.CardModel
 import com.learning.projectmanager.models.SelectedMemberModel
 
-open class CardItemsAdapter(
+/*
+    Recycler Adapter for all cards associated with a Task List
+    Displays label colour and users card is assigned to
+ */
+open class TaskCardsAdapter(
     private val context: Context,
     private val list: ArrayList<CardModel>
-): RecyclerView.Adapter<CardItemsAdapter.ViewHolder>() {
+): RecyclerView.Adapter<TaskCardsAdapter.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
 
     inner class ViewHolder(binding: ItemCardBinding): RecyclerView.ViewHolder(binding.root) {
@@ -71,7 +75,7 @@ open class CardItemsAdapter(
                         object : AssignedMembersAdapter.OnClickListener {
                             override fun onClick() {
                                 if(onClickListener != null) {
-                                    onClickListener!!.onClick(position)
+                                    onClickListener!!.onClick(holder.adapterPosition)
                                 }
                             }
                         }

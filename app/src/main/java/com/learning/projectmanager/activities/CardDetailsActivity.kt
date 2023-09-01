@@ -127,12 +127,9 @@ class CardDetailsActivity : BaseActivity() {
             mMembersDetails = intent.getParcelableArrayListExtra(Constants.BOARD_MEMBERS)!!
     }
 
-    fun addUpdateCardListSuccess() {
-        hideProgressDialog()
-        setResult(Activity.RESULT_OK)
-        finish()
-    }
-
+    /*
+        Updates the local board model with card changes in order to update the board card mnodel in the DB
+     */
     private fun updateCardDetails() {
         val card = CardModel(
             binding.editCardNameTxt.text.toString(),
@@ -148,6 +145,15 @@ class CardDetailsActivity : BaseActivity() {
         db.addUpdateList(this@CardDetailsActivity, mBoardDetails)
     }
 
+    fun addUpdateCardListSuccess() {
+        hideProgressDialog()
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
+
+    /*
+        Deletes a card from the local board model that has been deleted by user and calls for DB update
+     */
     fun deleteCard() {
         val cardList: ArrayList<CardModel> = mBoardDetails.taskList[mTaskPosition].cardList
         cardList.removeAt(mCardPosition)
@@ -160,6 +166,9 @@ class CardDetailsActivity : BaseActivity() {
         db.addUpdateList(this@CardDetailsActivity, mBoardDetails)
     }
 
+    /*
+        List of card label colours that can be selected by the user
+     */
     private fun coloursList(): ArrayList<String> {
         val coloursList = ArrayList<String>()
         coloursList.add(resources.getString(R.string.Red))
@@ -172,11 +181,17 @@ class CardDetailsActivity : BaseActivity() {
         return coloursList
     }
 
+    /*
+        Sets the colour of the label_colour property in the UI
+     */
     private fun setColour() {
         binding.selectLabelColour.text = ""
         binding.selectLabelColour.setBackgroundColor(Color.parseColor(mSelectedColour))
     }
 
+    /*
+        Dialog Displayed when user is selecting a label colour
+     */
     private fun colourLabelDialog() {
         val coloursList = coloursList()
         val listDialog = object: ColourLabelDialog(
@@ -194,6 +209,9 @@ class CardDetailsActivity : BaseActivity() {
         listDialog.show()
     }
 
+    /*
+        Dialog Displayed when the user is assigning members to the board
+     */
     private fun assignedMembersDialog() {
         var cardAssignedMembers = mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].assignedTo
         if(cardAssignedMembers.size > 0) {
@@ -250,6 +268,9 @@ class CardDetailsActivity : BaseActivity() {
         listDialog.show()
     }
 
+    /*
+        Populates the assigned card members to the UI
+     */
     private fun populateAssignedMembersToUI() {
         val assignedMembersList = mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].assignedTo
 
@@ -288,6 +309,9 @@ class CardDetailsActivity : BaseActivity() {
         }
     }
 
+    /*
+        DatePickerDialog displayed when user is choosing the cards due date
+     */
     private fun clickDatePicker() {
         val calender = Calendar.getInstance()
         val year = calender.get(Calendar.YEAR)

@@ -19,11 +19,18 @@ import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 
+/*
+    Firestore class for implementing functions that call the Firestore
+    Separate in case need for change of DB is required
+ */
 class FirestoreClass {
     private val mFireStore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    fun registerUser(activity: SignUpActivity, userInfo: UserModel) {
+    /*
+        Stores new user details in Firestore
+     */
+    fun registerUser(activity: SignUpActivity, userInfo: UserModel) =
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .set(userInfo, SetOptions.merge())
@@ -32,9 +39,12 @@ class FirestoreClass {
             }.addOnFailureListener { e ->
                 Log.e(activity.javaClass.simpleName, "${e.message}")
             }
-    }
 
-    fun registerBoard(activity: CreateBoardActivity, boardInfo: BoardModel) {
+
+    /*
+        Stores new board details in Firestore
+     */
+    fun registerBoard(activity: CreateBoardActivity, boardInfo: BoardModel) =
         mFireStore.collection(Constants.BOARDS)
             .document()
             .set(boardInfo, SetOptions.merge())
@@ -43,9 +53,12 @@ class FirestoreClass {
             }.addOnFailureListener { e ->
                 Log.e(activity.javaClass.simpleName, "${e.message}")
             }
-    }
 
-    fun getBoardsList(activity: MainActivity) {
+
+    /*
+        Returns a list of boards that have been assigned to a user
+     */
+    fun getBoardsList(activity: MainActivity) =
         mFireStore.collection(Constants.BOARDS)
             .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserId())
             .get()
@@ -62,9 +75,11 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "ERROR in fetching Boards")
             }
-    }
 
-    fun updateUserProfileData(activity: EditProfileActivity, userHashMap: HashMap<String, Any>) {
+    /*
+        Updates any user profile data that has been changed in the Edit Profile Screen
+     */
+    fun updateUserProfileData(activity: EditProfileActivity, userHashMap: HashMap<String, Any>) =
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .update(userHashMap)
@@ -85,15 +100,15 @@ class FirestoreClass {
                     Toast.LENGTH_LONG
                 ).show()
             }
-    }
 
-    fun getBoardDetails(activity: TaskListActivity, documentId: String) {
-        Log.i(this.javaClass.simpleName, documentId)
+    /*
+        Returns the details on a specific board
+     */
+    fun getBoardDetails(activity: TaskListActivity, documentId: String) =
         mFireStore.collection(Constants.BOARDS)
             .document(documentId)
             .get()
             .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.toString())
                 val board = document.toObject(BoardModel::class.java)!!
                 board.documentId = documentId
                 activity.boardDetails(board)
@@ -101,9 +116,11 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "ERROR in fetching Boards")
             }
-    }
 
-    fun loadUserData(activity: Activity, readBoardsList: Boolean = false) {
+    /*
+        Returns the user data of logged in user
+     */
+    fun getUserData(activity: Activity, readBoardsList: Boolean = false) =
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
             .get()
@@ -115,7 +132,7 @@ class FirestoreClass {
                             activity.signInSuccess(loggedInUser)
                         }
                         is MainActivity -> {
-                            activity.updateNavigationUserDetails(loggedInUser, readBoardsList)
+                            activity.populateUserDetailsToDrawerUI(loggedInUser, readBoardsList)
                         }
                         is EditProfileActivity -> {
                             activity.setUserDataInUI(loggedInUser)
@@ -125,8 +142,11 @@ class FirestoreClass {
             }.addOnFailureListener { e ->
                 Log.e(activity.javaClass.simpleName, "${e.message}")
             }
-    }
 
+
+    /*
+        Returns the user id of the user currently logged in
+     */
     fun getCurrentUserId(): String {
         val currentUser = auth.currentUser
         var currentUserId = ""
@@ -135,7 +155,9 @@ class FirestoreClass {
         }
         return currentUserId
     }
-
+    /*
+        Updates List Data in DB (Both TaskList and CardList)
+     */
     fun addUpdateList(activity: Activity, board: BoardModel) {
         val taskListHashMap = HashMap<String, Any>()
         taskListHashMap[Constants.TASK_LIST] = board.taskList
@@ -153,7 +175,10 @@ class FirestoreClass {
             }
     }
 
-    fun getAssignedMembersListDetails(activity: Activity, assignedTo: ArrayList<String>) {
+    /*
+        Returns the details of the users that are assigned to a Board/Card
+     */
+    fun getAssignedMembersListDetails(activity: Activity, assignedTo: ArrayList<String>) =
         mFireStore.collection(Constants.USERS)
             .whereIn(Constants.ID, assignedTo)
             .get()
@@ -170,9 +195,11 @@ class FirestoreClass {
                 if(activity is BaseActivity) activity.hideProgressDialog()
                 Log.i(activity.javaClass.simpleName, ex.message.toString())
             }
-    }
 
-    fun getMemberDetails(activity: BoardMembersActivity, email: String) {
+    /*
+        Returns the user details of a user that has been searched (Based on Email)
+     */
+    fun getMemberDetails(activity: BoardMembersActivity, email: String) =
         mFireStore.collection(Constants.USERS)
             .whereEqualTo(Constants.EMAIL, email)
             .get()
@@ -188,8 +215,10 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "Error Finding User, Please Try Again Later.")
             }
-    }
 
+    /*
+        Assigns a specified user to a board
+     */
     fun assignMemberToBoard(
         activity: BoardMembersActivity,
         board: BoardModel,

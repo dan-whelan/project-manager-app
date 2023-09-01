@@ -11,6 +11,10 @@ import com.learning.projectmanager.models.SelectedMemberModel
 import com.learning.projemanag.R
 import com.learning.projemanag.databinding.AssignedMembersBinding
 
+/*
+    Recycler Adapter for Members assigned to cards, displays user profile images
+    of those that have been assigned to the card
+ */
 open class AssignedMembersAdapter(
     val context: Context,
     val list: ArrayList<SelectedMemberModel>,

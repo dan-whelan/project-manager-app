@@ -9,10 +9,14 @@ import com.learning.projemanag.R
 import com.learning.projemanag.databinding.ItemBoardBinding
 import com.learning.projectmanager.models.BoardModel
 
-open class BoardItemsAdapter(
+/*
+    Recycler Adapter for any boards that have been assigned to current user
+    Boards displayed on Main Activity Screen
+ */
+open class AssignedBoardsAdapter(
     private val context: Context,
     private val list: ArrayList<BoardModel>
-    ): RecyclerView.Adapter<BoardItemsAdapter.ViewHolder>() {
+    ): RecyclerView.Adapter<AssignedBoardsAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
 

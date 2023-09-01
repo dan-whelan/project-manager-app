@@ -9,6 +9,9 @@ import com.learning.projectmanager.adapters.ColourLabelAdapter
 import com.learning.projectmanager.models.UserModel
 import com.learning.projemanag.databinding.ListDialogBinding
 
+/*
+    Abstract Class for implementing functionality of assigning members to cards
+ */
 abstract class AssignedMemberDialog(
     context: Context,
     private var list: ArrayList<UserModel>,

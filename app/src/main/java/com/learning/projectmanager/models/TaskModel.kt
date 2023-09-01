@@ -3,6 +3,9 @@ package com.learning.projectmanager.models
 import android.os.Parcel
 import android.os.Parcelable
 
+/*
+    Model for Tasks stored in DB
+ */
 data class TaskModel(
     val title: String = "",
     val createdBy: String = "",

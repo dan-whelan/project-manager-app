@@ -11,6 +11,10 @@ import com.learning.projemanag.databinding.ItemMemberBinding
 import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 
+/*
+    Recycler Adapter for Members that are displayed by Member Dialog in card details screen
+    When user is selecting a member to assign
+ */
 open class MembersAdapter(
     val context: Context,
     val list: ArrayList<UserModel>

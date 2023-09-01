@@ -46,7 +46,7 @@ class EditProfileActivity : BaseActivity() {
 
         setupActionBar()
 
-        db.loadUserData(this)
+        db.getUserData(this)
 
         binding.editProfileImg.setOnClickListener {
             val pictureDialog = AlertDialog.Builder(this)
@@ -219,7 +219,6 @@ class EditProfileActivity : BaseActivity() {
     /*
         Upload User selected image from device to firebase storage
      */
-
     private fun uploadUserImage() {
         showCustomProgressDialog()
         if(mSelectedImage != null) {

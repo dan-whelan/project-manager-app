@@ -70,6 +70,9 @@ class BoardMembersActivity : BaseActivity() {
         onBackPressedDispatcher.onBackPressed()
     }
 
+    /*
+        Displays all of the members that have current access to this board
+     */
     fun populateMembersListToUI(membersList: ArrayList<UserModel>) {
         mAssignedMembersList = membersList
 
@@ -81,7 +84,9 @@ class BoardMembersActivity : BaseActivity() {
             it.setHasFixedSize(true)
         }
     }
-
+    /*
+        Allows th user to enter an email associated with a user in order to add them to a board
+     */
     private fun searchMember() {
         val dialog = Dialog(this)
         val dialogBinding = DialogAddNewMembersBinding.inflate(layoutInflater)
@@ -105,6 +110,9 @@ class BoardMembersActivity : BaseActivity() {
         dialog.show()
     }
 
+    /*
+        A util function called by DB that updates the local board model in order to update the cloud board model
+     */
     fun memberDetails(user: UserModel) {
         mBoardDetails.assignedTo.add(user.id)
         db.assignMemberToBoard(this, mBoardDetails, user)

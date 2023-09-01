@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.databinding.ItemLabelColourBinding
 
+/*
+    Recycler Adapter for Colours that are displayed by Colour Dialog in card details screen
+    When user is selecting a label colour
+ */
 open class ColourLabelAdapter(
     private val context: Context,
     private val list: ArrayList<String>,

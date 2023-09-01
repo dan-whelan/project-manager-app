@@ -3,6 +3,9 @@ package com.learning.projectmanager.models
 import android.os.Parcel
 import android.os.Parcelable
 
+/*
+    Model for member that is assigned to card
+ */
 data class SelectedMemberModel(
     val id: String = "",
     val image: String = ""

@@ -19,19 +19,31 @@ open class BaseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_base)
     }
 
+    /*
+        Displays a spinning progress dialog while processes occur in the background
+     */
     fun showCustomProgressDialog() {
         mProgressDialog = Dialog(this)
         mProgressDialog.setContentView(R.layout.dialog_custom_progress)
         mProgressDialog.show()
     }
 
+    /*
+        Hides above progress dialog
+     */
     fun hideProgressDialog() {
         mProgressDialog.dismiss()
     }
 
+    /*
+        Returns the UUID of the current user logged into the app
+     */
     fun getCurrentUserID(): String =
         FirebaseAuth.getInstance().currentUser!!.uid
 
+    /*
+        Checks if the back button has been pressed twice in order to exit
+     */
     fun doubleBackToExit() {
         if(doubleBackToExitPressedOnce) {
             super.getOnBackPressedDispatcher().onBackPressed()
@@ -49,6 +61,9 @@ open class BaseActivity : AppCompatActivity() {
         }, 2000)
     }
 
+    /*
+        Displays a snackbar containing information about why a process has failed (user caused)
+     */
     fun showErrorSnackBar(message: String) {
         val snackBar = Snackbar.make(
             findViewById(android.R.id.content),

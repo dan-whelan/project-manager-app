@@ -43,11 +43,6 @@ class SignInActivity : BaseActivity() {
 
     }
 
-    fun signInSuccess(user: UserModel) {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
-
     private fun setupActionBar() {
         setSupportActionBar(binding.signInToolbar)
         if(supportActionBar != null) {
@@ -60,6 +55,9 @@ class SignInActivity : BaseActivity() {
         }
     }
 
+    /*
+        Signs in user using FirebaseAuth
+     */
     private fun signInUser() {
         val email: String = binding.editEmailTxt.text.toString().trim{ it <= ' '}
         val password: String = binding.editPasswordTxt.text.toString().trim{ it <= ' ' }
@@ -71,7 +69,7 @@ class SignInActivity : BaseActivity() {
                     if(task.isSuccessful) {
                         Log.d("SignIn", "signInWithEmail:Success")
                         val user = auth.currentUser
-                        db.loadUserData(this)
+                        db.getUserData(this)
                         Toast.makeText(
                             this,
                             "Welcome",
@@ -89,6 +87,14 @@ class SignInActivity : BaseActivity() {
         }
     }
 
+    fun signInSuccess(user: UserModel) {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    /*
+        Checks if all fields are full, if not snackbar is shown
+     */
     private fun validateForm(email: String, password: String): Boolean =
         when {
             TextUtils.isEmpty(email) -> {

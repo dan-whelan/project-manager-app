@@ -3,6 +3,9 @@ package com.learning.projectmanager.models
 import android.os.Parcel
 import android.os.Parcelable
 
+/*
+    Model for user stored in DB
+ */
 data class UserModel(
     val id: String = "",
     val name: String = "",

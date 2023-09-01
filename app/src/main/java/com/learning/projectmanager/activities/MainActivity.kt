@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.learning.projemanag.R
-import com.learning.projectmanager.adapters.BoardItemsAdapter
+import com.learning.projectmanager.adapters.AssignedBoardsAdapter
 import com.learning.projemanag.databinding.ActivityMainBinding
 import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.BoardModel
@@ -47,13 +47,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             startCreateBoardActivity.launch(intent)
         }
 
-        db.loadUserData(this, true)
+        db.getUserData(this, true)
     }
-
+    /*
+        Populates the UI with all boards associated to current user
+     */
     fun populateBoardsListToUI(boardsList: ArrayList<BoardModel>) {
         hideProgressDialog()
         if(boardsList.size > 0) {
-            val adapter = BoardItemsAdapter(this, boardsList)
+            val adapter = AssignedBoardsAdapter(this, boardsList)
             findViewById<RecyclerView>(R.id.board_list).let {
                 it.visibility = View.VISIBLE
                 it.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -62,7 +64,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             findViewById<TextView>(R.id.no_boards_txt).visibility = View.GONE
 
-            adapter.setOnClickListener(object: BoardItemsAdapter.OnClickListener{
+            adapter.setOnClickListener(object: AssignedBoardsAdapter.OnClickListener{
                 override fun onClick(position: Int, model: BoardModel) {
                     val intent = Intent(this@MainActivity, TaskListActivity::class.java)
                     intent.putExtra(Constants.DOCUMENT_ID, model.documentId)
@@ -75,22 +77,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    fun updateNavigationUserDetails(user: UserModel, readBoardsList: Boolean = false) {
-        mUsername = user.name
-        Glide
-            .with(this@MainActivity)
-            .load(user.image)
-            .centerCrop()
-            .placeholder(R.drawable.ic_user_place_holder)
-            .into(findViewById(R.id.profile_img))
-
-        findViewById<TextView>(R.id.username).text = user.name
-
-        if(readBoardsList) {
-            showCustomProgressDialog()
-            db.getBoardsList(this)
-        }
-    }
 
     private fun setupActionBar() {
         setSupportActionBar(binding.mainAppBar.mainToolbar)
@@ -107,12 +93,34 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
-
+    /*
+        Closes drawer if drawer is open, else closes app
+     */
     override fun onBackPressed() {
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             doubleBackToExit()
+        }
+    }
+
+    /*
+        populates user details to drawer on main screen
+     */
+    fun populateUserDetailsToDrawerUI(user: UserModel, readBoardsList: Boolean = false) {
+        mUsername = user.name
+        Glide
+            .with(this@MainActivity)
+            .load(user.image)
+            .centerCrop()
+            .placeholder(R.drawable.ic_user_place_holder)
+            .into(findViewById(R.id.profile_img))
+
+        findViewById<TextView>(R.id.username).text = user.name
+
+        if(readBoardsList) {
+            showCustomProgressDialog()
+            db.getBoardsList(this)
         }
     }
 
@@ -141,7 +149,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             ActivityResultContracts.StartActivityForResult()
         ){ result: ActivityResult ->
             if(result.resultCode == Activity.RESULT_OK) {
-                db.loadUserData(this@MainActivity)
+                db.getUserData(this@MainActivity)
             } else {
                 Log.e("Error", "Update Profile failed")
             }

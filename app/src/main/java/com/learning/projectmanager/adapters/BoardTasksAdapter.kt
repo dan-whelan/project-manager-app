@@ -23,10 +23,14 @@ import com.learning.projectmanager.models.TaskModel
 import com.learning.projectmanager.utils.Constants
 import java.util.Collections
 
-open class TaskItemsAdapter(
+/*
+    Recycler Adapter that is used to handle all events associated with the Task Lists
+    Shown in the Board Details Activity Screen
+ */
+open class BoardTasksAdapter(
     private val context: Context,
     private val list: ArrayList<TaskModel>
-): RecyclerView.Adapter<TaskItemsAdapter.ViewHolder>() {
+): RecyclerView.Adapter<BoardTasksAdapter.ViewHolder>() {
     private var mPosDraggedFrom = -1
     private var mPosDraggedTo = -1
 
@@ -83,6 +87,9 @@ open class TaskItemsAdapter(
             holder.taskItemLayout.visibility =  View.VISIBLE
         }
 
+        /*
+            Displays the create task dialog
+         */
         holder.taskListTitle.text = model.title
         holder.addTaskList.setOnClickListener {
             Log.i(this.javaClass.simpleName, "Here")
@@ -112,6 +119,9 @@ open class TaskItemsAdapter(
             }
         }
 
+        /*
+            Displays the edit task list title dialog
+         */
         holder.editListTitleBtn.setOnClickListener {
             holder.editTitle.setText(model.title)
             holder.viewTitleLayout.visibility = View.GONE
@@ -144,6 +154,9 @@ open class TaskItemsAdapter(
             Constants.dialogForDelete(context, holder.adapterPosition, model.title)
         }
 
+        /*
+            Displays the add card dialog
+         */
         holder.addCardBtn.setOnClickListener {
             holder.addCardBtn.visibility = View.GONE
             holder.addCardEdit.visibility = View.VISIBLE
@@ -181,13 +194,16 @@ open class TaskItemsAdapter(
             }
         }
 
+        /*
+            Handles the card details recycler, sends user to card details when tapped
+         */
         holder.cardRecycler.layoutManager = LinearLayoutManager(context)
         holder.cardRecycler.setHasFixedSize(true)
-        val adapter = CardItemsAdapter(context, model.cardList)
+        val adapter = TaskCardsAdapter(context, model.cardList)
         holder.cardRecycler.adapter = adapter
 
         adapter.setOnClickListener(
-            object: CardItemsAdapter.OnClickListener {
+            object: TaskCardsAdapter.OnClickListener {
                 override fun onClick(cardPosition: Int) {
                     if(context is TaskListActivity) {
                         context.cardDetails(holder.adapterPosition, cardPosition)
@@ -196,6 +212,9 @@ open class TaskItemsAdapter(
             }
         )
 
+        /*
+            Handles Drag and Drop implementation, allows user to organise cards
+         */
         val dividerItemDecoration = DividerItemDecoration(
             context,
             DividerItemDecoration.VERTICAL
@@ -245,6 +264,9 @@ open class TaskItemsAdapter(
         helper.attachToRecyclerView(holder.cardRecycler)
     }
 
+    /*
+        Helper functions for converting PX to DP and vice versa
+     */
     private fun Int.toDp(): Int =
         (this/Resources.getSystem().displayMetrics.density).toInt()
 

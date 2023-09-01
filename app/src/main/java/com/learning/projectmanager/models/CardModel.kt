@@ -3,6 +3,9 @@ package com.learning.projectmanager.models
 import android.os.Parcel
 import android.os.Parcelable
 
+/*
+    Model for card stored in DB
+ */
 data class CardModel(
     val title: String = "",
     val createdBy: String = "",

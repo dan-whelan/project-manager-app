@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.learning.projemanag.R
-import com.learning.projectmanager.adapters.TaskItemsAdapter
+import com.learning.projectmanager.adapters.BoardTasksAdapter
 import com.learning.projemanag.databinding.ActivityTaskListBinding
 import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.BoardModel
@@ -69,6 +69,9 @@ class TaskListActivity : BaseActivity() {
         }
     }
 
+    /*
+        Stores board details locally and gets members assigned to board from db
+     */
     fun boardDetails(board: BoardModel) {
         mBoardDetails = board
 
@@ -80,14 +83,9 @@ class TaskListActivity : BaseActivity() {
         db.getAssignedMembersListDetails(this, mBoardDetails.assignedTo)
     }
 
-    fun addUpdateTaskListSuccess() {
-        hideProgressDialog()
-
-        showCustomProgressDialog()
-
-        db.getBoardDetails(this, boardDocumentId)
-    }
-
+    /*
+        Called when user creates a task list updates DB
+     */
     fun createTaskList(taskListName: String) {
         val task = TaskModel(taskListName, db.getCurrentUserId())
         mBoardDetails.taskList.add(0, task)
@@ -97,6 +95,9 @@ class TaskListActivity : BaseActivity() {
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        Called when user udpdates a task list updates DB
+     */
     fun updateTaskList(position: Int, listName: String, model: TaskModel) {
         val task = TaskModel(listName, model.createdBy)
         mBoardDetails.taskList[position] = task
@@ -105,12 +106,28 @@ class TaskListActivity : BaseActivity() {
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        Called when user deletes a task list updates DB
+     */
     fun deleteTaskList(position: Int) {
         mBoardDetails.taskList.removeAt(position)
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        Called after create/update/delete is successful
+     */
+    fun addUpdateTaskListSuccess() {
+        hideProgressDialog()
+        showCustomProgressDialog()
+
+        db.getBoardDetails(this, boardDocumentId)
+    }
+
+    /*
+        When user creates a card list for a task updates DB
+     */
     fun createCardList(position: Int, cardName: String) {
         val assignedUsers: ArrayList<String> = ArrayList()
         assignedUsers.add(db.getCurrentUserId())
@@ -121,6 +138,9 @@ class TaskListActivity : BaseActivity() {
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        When user adds a card to a card list for a task updates DB
+     */
     fun addCardToList(position: Int, cardName: String) {
         val assignedUsers: ArrayList<String> = ArrayList()
         assignedUsers.add(db.getCurrentUserId())
@@ -131,6 +151,9 @@ class TaskListActivity : BaseActivity() {
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        When a user clicks on a card
+     */
     fun cardDetails(taskListPosition: Int, cardPosition: Int) {
         val intent = Intent(this, CardDetailsActivity::class.java)
         intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
@@ -140,6 +163,9 @@ class TaskListActivity : BaseActivity() {
         startCardDetailsRequest.launch(intent)
     }
 
+    /*
+        Receives assigned board members from db and populates UI with task lists
+     */
     fun boardMembersDetails(list: ArrayList<UserModel>) {
         mAssignedMemberList = list
         hideProgressDialog()
@@ -152,10 +178,13 @@ class TaskListActivity : BaseActivity() {
         )
         binding.taskList.setHasFixedSize(true)
 
-        val adapter = TaskItemsAdapter(this, mBoardDetails.taskList)
+        val adapter = BoardTasksAdapter(this, mBoardDetails.taskList)
         binding.taskList.adapter = adapter
     }
 
+    /*
+        Updates list whenever a card is dragged to a new position
+     */
     fun updateCardPosInTaskList(taskListPosition: Int, cardList: ArrayList<CardModel>) {
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size -1)
         mBoardDetails.taskList[taskListPosition].cardList = cardList
@@ -163,6 +192,9 @@ class TaskListActivity : BaseActivity() {
         db.addUpdateList(this, mBoardDetails)
     }
 
+    /*
+        Contracts
+     */
     private val startMembersRequest =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()

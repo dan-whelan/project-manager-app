@@ -11,6 +11,9 @@ import android.webkit.MimeTypeMap
 import com.learning.projectmanager.activities.CardDetailsActivity
 import com.learning.projectmanager.activities.TaskListActivity
 
+/*
+    Constants object for maintaining vals and funs across classes
+ */
 object Constants {
     const val USERS = "users"
     const val BOARDS = "boards"
@@ -55,11 +58,17 @@ object Constants {
                 dialog.dismiss()
             }.show()
 
+    /*
+        Returns the file extenstion of a given URI
+     */
     fun getFileExtension(activity: Activity, uri: Uri): String? =
         MimeTypeMap
             .getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri))
 
+    /*
+        Dialog displayed when a user attempts to delete something
+     */
     fun dialogForDelete(context: Context, position: Int, title: String) {
         val alertDialog: AlertDialog = AlertDialog.Builder(context)
             .setTitle("Alert")

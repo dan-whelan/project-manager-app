@@ -53,16 +53,6 @@ class CreateBoardActivity : BaseActivity() {
         }
     }
 
-    fun boardCreatedSuccessfully() {
-        hideProgressDialog()
-        setResult(Activity.RESULT_OK)
-        Toast.makeText(
-            this,
-            "Board Created Successfully",
-            Toast.LENGTH_SHORT
-        ).show()
-        finish()
-    }
 
     private fun setupActionBar() {
         setSupportActionBar(binding.signUpToolbar)
@@ -76,6 +66,9 @@ class CreateBoardActivity : BaseActivity() {
         }
     }
 
+    /*
+        Creates a board model locally which is sent to the DB
+     */
     private fun createBoard() {
         val assignedUsersArrayList: ArrayList<String> = ArrayList()
         assignedUsersArrayList.add(getCurrentUserID())
@@ -90,6 +83,20 @@ class CreateBoardActivity : BaseActivity() {
         db.registerBoard(this, board)
     }
 
+    fun boardCreatedSuccessfully() {
+        hideProgressDialog()
+        setResult(Activity.RESULT_OK)
+        Toast.makeText(
+            this,
+            "Board Created Successfully",
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
+    }
+
+    /*
+        Image is uploaded to Firebase Storage in order for access across multiple devices
+     */
     private fun uploadBoardImage() {
         showCustomProgressDialog()
         if(mSelectedImage != null) {

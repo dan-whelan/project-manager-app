@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.projectmanager.adapters.ColourLabelAdapter
 import com.learning.projemanag.databinding.ListDialogBinding
 
+/*
+    Abstract class for implementing the functionality of assigning coloured labels to cards
+ */
 abstract class ColourLabelDialog(
     context: Context,
     private var list: ArrayList<String>,
