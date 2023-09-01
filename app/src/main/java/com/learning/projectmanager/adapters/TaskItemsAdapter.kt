@@ -13,17 +13,22 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.projemanag.R
 import com.learning.projectmanager.activities.TaskListActivity
 import com.learning.projectmanager.models.TaskModel
 import com.learning.projectmanager.utils.Constants
+import java.util.Collections
 
 open class TaskItemsAdapter(
     private val context: Context,
     private val list: ArrayList<TaskModel>
 ): RecyclerView.Adapter<TaskItemsAdapter.ViewHolder>() {
+    private var mPosDraggedFrom = -1
+    private var mPosDraggedTo = -1
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val addTaskList: TextView = view.findViewById(R.id.add_task_list)
@@ -190,6 +195,54 @@ open class TaskItemsAdapter(
                 }
             }
         )
+
+        val dividerItemDecoration = DividerItemDecoration(
+            context,
+            DividerItemDecoration.VERTICAL
+        )
+        holder.cardRecycler.addItemDecoration(dividerItemDecoration)
+
+        val helper = ItemTouchHelper(
+            object: ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val draggedPos = viewHolder.adapterPosition
+                    val targetPos = target.adapterPosition
+
+                    if(mPosDraggedFrom == -1) mPosDraggedFrom = draggedPos
+                    mPosDraggedTo = targetPos
+                    Log.i(context.javaClass.simpleName, "Here")
+                    Collections.swap(list[holder.adapterPosition].cardList, draggedPos, targetPos)
+                    adapter.notifyItemMoved(draggedPos, targetPos)
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                }
+
+                override fun clearView(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ) {
+                    super.clearView(recyclerView, viewHolder)
+
+                    if(mPosDraggedFrom != -1 && mPosDraggedTo != -1 && mPosDraggedFrom != mPosDraggedTo)
+                        (context as TaskListActivity).updateCardPosInTaskList(
+                            holder.adapterPosition,
+                            list[holder.adapterPosition].cardList
+                        )
+
+                    mPosDraggedFrom = -1
+                    mPosDraggedTo = -1
+                }
+            }
+        )
+        helper.attachToRecyclerView(holder.cardRecycler)
     }
 
     private fun Int.toDp(): Int =

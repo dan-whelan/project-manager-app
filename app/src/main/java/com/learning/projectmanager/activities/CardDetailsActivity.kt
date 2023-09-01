@@ -1,23 +1,30 @@
 package com.learning.projectmanager.activities
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import com.learning.projectmanager.adapters.AssignedMembersAdapter
 import com.learning.projectmanager.dialogs.AssignedMemberDialog
 import com.learning.projectmanager.dialogs.ColourLabelDialog
 import com.learning.projectmanager.firebase.FirestoreClass
 import com.learning.projectmanager.models.BoardModel
 import com.learning.projectmanager.models.CardModel
+import com.learning.projectmanager.models.SelectedMemberModel
 import com.learning.projectmanager.models.TaskModel
 import com.learning.projectmanager.models.UserModel
 import com.learning.projectmanager.utils.Constants
 import com.learning.projemanag.R
 import com.learning.projemanag.databinding.ActivityCardDetailsBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class CardDetailsActivity : BaseActivity() {
     private lateinit var binding: ActivityCardDetailsBinding
@@ -28,6 +35,7 @@ class CardDetailsActivity : BaseActivity() {
     private var mTaskPosition = -1
     private var mCardPosition = -1
     private var mSelectedColour = ""
+    private var mDueDateInMS: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +53,24 @@ class CardDetailsActivity : BaseActivity() {
                 it.setBackgroundColor(Color.parseColor(mSelectedColour))
                 it.text = ""
             }
+        mDueDateInMS = mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].dueDate
+        if(mDueDateInMS > 0) {
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+            val date = sdf.format(Date(mDueDateInMS))
+            binding.selectDueDate.text = date
+        }
 
-
+        populateAssignedMembersToUI()
         binding.selectLabelColour.setOnClickListener {
             colourLabelDialog()
         }
 
         binding.selectMembers.setOnClickListener {
             assignedMembersDialog()
+        }
+
+        binding.selectDueDate.setOnClickListener {
+            clickDatePicker()
         }
 
         binding.updateBtn.setOnClickListener {
@@ -120,7 +138,8 @@ class CardDetailsActivity : BaseActivity() {
             binding.editCardNameTxt.text.toString(),
             mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].createdBy,
             mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].assignedTo,
-            mSelectedColour
+            mSelectedColour,
+            mDueDateInMS
         )
 
         mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition] = card
@@ -201,10 +220,93 @@ class CardDetailsActivity : BaseActivity() {
             resources.getString(R.string.select_members_txt)
         ){
             override fun onItemSelected(member: UserModel, action: String) {
-                //TODO
+                if(action == Constants.SELECT) {
+                    if(!mBoardDetails
+                        .taskList[mTaskPosition]
+                        .cardList[mCardPosition]
+                        .assignedTo
+                        .contains(member.id)) {
+                        mBoardDetails
+                            .taskList[mTaskPosition]
+                            .cardList[mCardPosition]
+                            .assignedTo.add(member.id)
+                    }
+                } else {
+                    mBoardDetails
+                        .taskList[mTaskPosition]
+                        .cardList[mCardPosition]
+                        .assignedTo.remove(member.id)
+
+                    mMembersDetails.indices.forEach { idx ->
+                        if(mMembersDetails[idx].id == member.id) {
+                            mMembersDetails[idx].selected = false
+                        }
+                    }
+                }
+
+                populateAssignedMembersToUI()
+            }
+        }
+        listDialog.show()
+    }
+
+    private fun populateAssignedMembersToUI() {
+        val assignedMembersList = mBoardDetails.taskList[mTaskPosition].cardList[mCardPosition].assignedTo
+
+        val selectedMembersList: ArrayList<SelectedMemberModel> = ArrayList()
+        mMembersDetails.indices.forEach { idx ->
+            assignedMembersList.forEach { member ->
+                if(mMembersDetails[idx].id == member) {
+                    val selectedMember = SelectedMemberModel(
+                        mMembersDetails[idx].id,
+                        mMembersDetails[idx].image
+                    )
+                    selectedMembersList.add(selectedMember)
+                }
             }
         }
 
-        listDialog.show()
+        if(selectedMembersList.size > 0) {
+            selectedMembersList.add(SelectedMemberModel("", ""))
+            binding.selectMembers.visibility = View.GONE
+            binding.assignedMembers.let {
+                it.visibility = View.VISIBLE
+                it.layoutManager = GridLayoutManager(this, 6)
+
+                val adapter = AssignedMembersAdapter(this, selectedMembersList, true)
+                it.adapter = adapter
+                adapter.onClickListener =
+                    object : AssignedMembersAdapter.OnClickListener {
+                        override fun onClick() {
+                            assignedMembersDialog()
+                        }
+                    }
+            }
+        } else {
+            binding.selectMembers.visibility = View.VISIBLE
+            binding.assignedMembers.visibility = View.GONE
+        }
+    }
+
+    private fun clickDatePicker() {
+        val calender = Calendar.getInstance()
+        val year = calender.get(Calendar.YEAR)
+        val month = calender.get(Calendar.MONTH)
+        val day = calender.get(Calendar.DAY_OF_MONTH)
+        val datePicker = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                val theDate = sdf.parse(selectedDate)!!
+                mDueDateInMS = theDate.time
+                binding.selectDueDate.text = sdf.format(theDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePicker.show()
     }
 }

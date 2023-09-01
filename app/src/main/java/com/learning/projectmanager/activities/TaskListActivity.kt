@@ -26,7 +26,7 @@ class TaskListActivity : BaseActivity() {
 
     private lateinit var boardDocumentId: String
     private lateinit var mBoardDetails: BoardModel
-    private lateinit var mAssignedMemberList: ArrayList<UserModel>
+    lateinit var mAssignedMemberList: ArrayList<UserModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskListBinding.inflate(layoutInflater)
@@ -74,15 +74,6 @@ class TaskListActivity : BaseActivity() {
 
         hideProgressDialog()
         setupActionBar()
-
-        val addTaskList = TaskModel(resources.getString(R.string.add_list_txt))
-        board.taskList.add(addTaskList)
-
-        binding.taskList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.taskList.setHasFixedSize(true)
-
-        val adapter = TaskItemsAdapter(this, board.taskList)
-        binding.taskList.adapter = adapter
 
         showCustomProgressDialog()
         Log.i(this.javaClass.simpleName, mBoardDetails.assignedTo.toString())
@@ -152,6 +143,24 @@ class TaskListActivity : BaseActivity() {
     fun boardMembersDetails(list: ArrayList<UserModel>) {
         mAssignedMemberList = list
         hideProgressDialog()
+
+        val addTaskList = TaskModel(resources.getString(R.string.add_list_txt))
+        mBoardDetails.taskList.add(addTaskList)
+
+        binding.taskList.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL, false
+        )
+        binding.taskList.setHasFixedSize(true)
+
+        val adapter = TaskItemsAdapter(this, mBoardDetails.taskList)
+        binding.taskList.adapter = adapter
+    }
+
+    fun updateCardPosInTaskList(taskListPosition: Int, cardList: ArrayList<CardModel>) {
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size -1)
+        mBoardDetails.taskList[taskListPosition].cardList = cardList
+
+        db.addUpdateList(this, mBoardDetails)
     }
 
     private val startMembersRequest =

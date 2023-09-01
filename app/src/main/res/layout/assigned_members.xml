@@ -8,6 +8,7 @@
     android:padding="@dimen/details_list_title_padding">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/member_profile_img"
         android:layout_width="@dimen/details_selected_member_img_size"
         android:layout_height="@dimen/details_selected_member_img_size"
         android:contentDescription="@string/profile_picture_img"
@@ -18,6 +19,7 @@
         tools:visibility="gone"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/add_assignee"
         android:layout_width="@dimen/details_selected_member_img_size"
         android:layout_height="@dimen/details_selected_member_img_size"
         android:contentDescription="@string/profile_picture_img"
